@@ -26,40 +26,41 @@ const {
   generateTableContentWith0,
 } = table();
 
-const caja = {
-  periodos:0,
-  inversiones: [],
-  costos: [
-  ],
-  ingresos: [],
-};
 // const caja = {
-//   periodos: 4,
-//   inversiones: [
-//     { name: "Equipo de compueto", quantity: 35000, isDisabled: true },
-//     { name: "Acondicionamiento", quantity: 1000, isDisabled: true },
-//     { name: "Muebles", quantity: 2500, isDisabled: true },
-//     { name: "Formalizacion", quantity: 600, isDisabled: false },
-//     { name: "Publicidad", quantity: 300, isDisabled: false },
-//   ],
+//   periodos:0,
+//   inversiones: [],
 //   costos: [
-//     { name: "Pago de personal", values: [10000, 12000, 13000, 13000] },
-//     { name: "Pago de servicios", values: [7500, 7500, 7200, 7200] },
-//     { name: "Materiales", values: [900, 950, 1100, 1100] },
-//     { name: "Publicidad", values: [1500, 600, 600, 600] },
 //   ],
-//   depreciaciones: [
-//     {
-//       name: "Deprecion de: equipo de computo",
-//       values: [7000, 7000, 7000, 7000],
-//     },
-//     {
-//       name: "Deprecion de: otros",
-//       values: [350, 350, 350, 350],
-//     },
-//   ],
-//   ingresos: [48750, 52500, 44400, 46800],
+//   ingresos: [],
+//   depreciaciones: []
 // };
+const caja = {
+  periodos: 4,
+  inversiones: [
+    { name: "Equipo de compueto", quantity: 35000, isDisabled: true },
+    { name: "Acondicionamiento", quantity: 1000, isDisabled: true },
+    { name: "Muebles", quantity: 2500, isDisabled: true },
+    { name: "Formalizacion", quantity: 600, isDisabled: false },
+    { name: "Publicidad", quantity: 300, isDisabled: false },
+  ],
+  costos: [
+    { name: "Pago de personal", values: [10000, 12000, 13000, 13000] },
+    { name: "Pago de servicios", values: [7500, 7500, 7200, 7200] },
+    { name: "Materiales", values: [900, 950, 1100, 1100] },
+    { name: "Publicidad", values: [1500, 600, 600, 600] },
+  ],
+  depreciaciones: [
+    {
+      name: "Deprecion de: equipo de computo",
+      values: [7000, 7000, 7000, 7000],
+    },
+    {
+      name: "Deprecion de: otros",
+      values: [350, 350, 350, 350],
+    },
+  ],
+  ingresos: [48750, 52500, 44400, 46800],
+};
 function State(defState) {
   let defaultState = defState;
   return [
@@ -154,6 +155,8 @@ document.getElementById("btn-inversion").addEventListener("click", (e) => {
   quantityInput.value = "";
 
   renderInversiones(caja["inversiones"]);
+
+  renderInversionesPrestamo()
 });
 
 function getTemplateCost(periodos) {
@@ -284,6 +287,7 @@ document
     });
 
     renderInversiones(caja.inversiones);
+    // renderInversionesPrestamo
   });
 
 document
@@ -605,7 +609,7 @@ function calcularPri(saldoFinal) {
 
 // amortizacion
 
-const $detailsContainer = document.getElementById("details-container");
+
 
 const impRenta = createInput("impRenta", "% impuesto a la renta");
 impRenta.onChange((e) => {
@@ -626,6 +630,7 @@ btn.onClick((e) => {
   generateInversion(caja.inversiones, caja.periodos);
   generateInversionTotal(getTotalInversion(caja.inversiones));
   generateCostos(caja.costos, caja.periodos);
+  console.log(caja)
   generateDepreciacion(caja.depreciaciones, caja.periodos);
 
   const totalCost = getTotalCost(
@@ -746,14 +751,20 @@ btn.onClick((e) => {
   $vanContainer.appendChild($h1)
   $vanContainer.appendChild($h1tir)
 });
-const $div = createDiv("card p-3 mb-3");
+function renderInversionesPrestamo() {
+  const $div = createDiv("card p-3 mb-3");
+  const $detailsContainer = document.getElementById("details-container");
+  $detailsContainer.innerHTML=''
+  createSelects($div, caja.inversiones, "name", "inversionesPrestamo");
+  $detailsContainer.appendChild(impRenta.html);
+  $detailsContainer.appendChild($interesContainer);
+  $detailsContainer.appendChild(credito.html);
+  $detailsContainer.appendChild($div);
+  $detailsContainer.appendChild(btn.html);
+}
 
-createSelects($div, caja.inversiones, "name", "inversionesPrestamo");
-$detailsContainer.appendChild(impRenta.html);
-$detailsContainer.appendChild($interesContainer);
-$detailsContainer.appendChild(credito.html);
-$detailsContainer.appendChild($div);
-$detailsContainer.appendChild(btn.html);
+renderInversionesPrestamo()
+
 
 const inputInteres = createInput("interes", "% Tasa de interes");
 inputInteres.onChange((e) => {
