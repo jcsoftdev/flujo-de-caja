@@ -27,23 +27,11 @@ const {
 } = table();
 
 const caja = {
-  periodos: 6,
-  inversiones: [
-    { name: "sw y hw", quantity: 8000, isDisabled: true },
-    { name: "Personal", quantity: 5500, isDisabled: false },
-    { name: "Tramite", quantity: 500, isDisabled: false },
-    { name: "Otros", quantity: 1000, isDisabled: false },
-  ],
+  periodos:0,
+  inversiones: [],
   costos: [
-    { name: "Pago de personal", values: [2500, 2500, 2500, 2500, 2500, 2500] },
   ],
-  depreciaciones: [
-    {
-      name: "Deprecion de: sw y hw",
-      values: [333.3, 333.3, 333.3, 333.3, 333.3, 333.3],
-    },
-  ],
-  ingresos: [22680, 32760, 37800, 30240, 37440, 42120],
+  ingresos: [],
 };
 // const caja = {
 //   periodos: 4,
