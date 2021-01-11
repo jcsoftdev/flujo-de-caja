@@ -124,16 +124,16 @@ document.getElementById("btn-periodos").addEventListener("click", (e) => {
 
   $p.innerText = `Ingrese perido 1`;
 
-  const $input = createInput("periodo", "Periodo");
+  const $input = createInput("periodo", "Periodo",'number');
 
   const $button = document.createElement("button");
   $button.setAttribute("class", "btn btn-success mt-4");
   $button.innerText = "Tomar periodo";
   $button.addEventListener("click", (el) => {
     const thisPeriodo = gen.next().value;
-    caja.ingresos.push(Number(el.path[1].childNodes[1].value));
+    caja.ingresos.push(Number($input.getValue()));
     $p.innerText = `Ingrese perido ${thisPeriodo + 1}`;
-    $input.value = "";
+    $input.changeValue('');
     if (thisPeriodo === periodos) {
       $div.removeChild($div2);
     }

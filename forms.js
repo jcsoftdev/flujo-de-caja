@@ -21,6 +21,9 @@ function createInput(id, placeholder = "", type = "text", clase = "") {
     onChange: function (call) {
       $input.addEventListener("keyup", call);
     },
+    changeValue: function (value) {
+      $input.value=value
+    }
   };
 }
 
